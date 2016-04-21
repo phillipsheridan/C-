@@ -79,6 +79,7 @@ class BST
     virtual bool insert(T element);
     virtual bool remove(T element);
     void inorder() const;
+    bool search(T t) const;
     void preorder() const;
     void postorder() const;
     int getSize() const;
@@ -141,8 +142,10 @@ void BST<T>::copy(const TreeNode<T>* root)
 template<typename T>
 BST<T>::~BST()
 {
-    clear(); }
+    clear();
+}
 // Return true if the element is in the tree
+/*
 template<typename T>
 bool BST<T>::search(T element) const
 {
@@ -161,6 +164,7 @@ bool BST<T>::search(T element) const
             return true; // Element is found
     return false; // Element is not in the tree
 }
+ */
 template<typename T>
 TreeNode<T>*  BST<T>::createNewNode(T element)
 {
@@ -340,6 +344,28 @@ bool BST<T>::remove(T element)
    
     return true; // Element inserted
 }
+
+template <typename T>
+bool BST<T>::search(T t) const {
+    
+    return search(t, root);
+}
+template <typename T>
+bool search(T& t, TreeNode<T>* current) {
+    if (current == nullptr) {
+        return false;
+    }
+    else if (current->element > t) {
+        return search(t, current->left);
+    }
+    else if (current->element < t) {
+        return search(t, current->right);
+    }
+    else {
+        return true;
+    }
+}
+
 template <typename T>
 int BST<T>::findHeight(TreeNode<T>* node) const {
     if (node == nullptr)
